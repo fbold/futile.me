@@ -1,0 +1,14 @@
+/bin/
+/build/
+/dist/
+*.log
+
+.env
+.env.*
+
+*.swp
+
+/tmp/
+/uploads/
+/static/generated/
+
