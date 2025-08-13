@@ -1,12 +1,40 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"html/template"
+	"io"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
+)
+
+type TemplateRenderer struct {
+	templates *template.Template
+}
+
+func (t *TemplateRenderer) Render(w io.Writer, name string, data any) error {
+	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+func newTemplateRenderer() *TemplateRenderer {
+	return &TemplateRenderer{
+		templates: template.Must(template.ParseGlob("web/*.html")),
+	}
+}
 
 func main() {
-	app := fiber.New()
+	engine := html.New("./templates", ".tmpl.html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
+
+	fmt.Print(engine.Templates)
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+		return c.Render("page/", fiber.Map{
+			"Title": "test",
+		})
 	})
 
 	app.Listen(":3000")
