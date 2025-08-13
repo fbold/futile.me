@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"html/template"
 	"io"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/html/v2"
 )
 
@@ -29,11 +30,15 @@ func main() {
 		Views: engine,
 	})
 
-	fmt.Print(engine.Templates)
+	// fmt.Print(engine.Templates)
+
+	app.Use(logger.New())
+
+	app.Static("/static", "./static")
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("page/", fiber.Map{
-			"Title": "test",
+			"Title": "testing",
 		})
 	})
 
