@@ -1,4 +1,9 @@
-{{define "page/"}}
+{{define "page/index"}}
 {{template "layout/main"}}
-<h1>{{.Title}}</h1>
+<h2 class="text-[0.95rem]">the home of written futility</h2>
+<div class="flex gap-3">
+	<a href="/write" class="underline">write</a>
+	<a href="/read" class="underline">read</a>
+	<a href="/forum" class="underline">forum</a>
+</div>
 {{end}}

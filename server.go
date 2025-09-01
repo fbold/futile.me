@@ -37,7 +37,13 @@ func main() {
 	app.Static("/static", "./static")
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("page/", fiber.Map{
+		return c.Render("page/index", fiber.Map{
+			"Title": "testing",
+		})
+	})
+
+	app.Get("/write", func(c *fiber.Ctx) error {
+		return c.Render("page/write", fiber.Map{
 			"Title": "testing",
 		})
 	})
