@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify"
+    "build": "npx tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify"
   },
-  "dependencies": {
+  "devDependencies": {
     "@tailwindcss/cli": "^4.1.11",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.14"
   }
 }
