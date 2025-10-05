@@ -1,4 +1,10 @@
 {
+  "name": "futile.me",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
     "tailwindcss": "^4.1.11"
