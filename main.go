@@ -6,9 +6,11 @@ import (
 	"html/template"
 	"io"
 
+	"github.com/a-h/templ"
+	"github.com/fbold/futile.me/templates/pages"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/template/html/v2"
 )
 
 //go:embed static/*
@@ -29,21 +31,14 @@ func newTemplateRenderer() *TemplateRenderer {
 }
 
 func main() {
-	engine := html.New("./templates", ".tmpl")
-	app := fiber.New(fiber.Config{
-		Views: engine,
-	})
-
-	// fmt.Print(engine.Templates)
+	app := fiber.New(fiber.Config{})
 
 	app.Use(logger.New())
 
 	app.Static("/static", "./static")
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("page/index", fiber.Map{
-			"Title": "testing",
-		})
+		return adaptor.HTTPHandler(templ.Handler(pages.Home()))(c)
 	})
 
 	app.Get("/write", func(c *fiber.Ctx) error {

@@ -1,4 +1,4 @@
-module fbold.dev/futile.me
+module github.com/fbold/futile.me
 
 go 1.24.5
 
