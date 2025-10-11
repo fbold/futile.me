@@ -1,0 +1,18 @@
+package pages
+
+import "github.com/fbold/futile.me/templates/layouts"
+
+templ comp() {
+<h2 class="text-xs">the home of written futility</h2>
+<div class="flex gap-3">
+	<a href="/write" class="underline">write</a>
+	<a href="/read" class="underline">read</a>
+	<a href="/forum" class="underline">forum</a>
+</div>
+}
+
+templ Write() {
+@layouts.Layout() {
+@comp()
+}
+}

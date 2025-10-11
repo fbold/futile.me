@@ -1,6 +1,7 @@
 # Makefile
 
 dev:
-	npx @tailwindcss/cli --watch -i ./static/css/style.css -o ./static/css/tailwind.css &\
-	air
+	npx concurrently \
+		"npx @tailwindcss/cli -i ./static/css/style.css -o ./static/css/tailwind.css --verbose --watch" \
+		"air"
 

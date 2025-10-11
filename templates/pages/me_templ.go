@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "github.com/fbold/futile.me/templates/layouts"
 
-func home() templ.Component {
+func me() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -38,13 +38,13 @@ func home() templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs("me")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/index.templ`, Line: 15, Col: 8}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/pages/me.templ`, Line: 15, Col: 8}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!-- <span class=\"w-min leading-none\">au</span> --><!-- <span class=\"w-min leading-none\">th</span> --></div></div><div class=\"flex flex-col gap-2\"><textarea class=\"p-2 border-2 border-accent w-[400px] h-[400px] text-base\" placeholder=\"Start writing...\"></textarea><div class=\"flex flex-row gap-2\"><button class=\"border-2 border-accent px-4 py-2 text-danger font-bold uppercase\">discard</button> <button class=\"border-2 border-accent px-4 py-2 grow font-bold uppercase\">do nothing</button> <button class=\"border-2 border-accent px-4 py-2 uppercase grow\">publish</button></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!-- <span class=\"w-min leading-none\">au</span> --><!-- <span class=\"w-min leading-none\">th</span> --></div></div><div class=\"flex flex-col gap-2\"><textarea class=\"p-2 border-2 border-accent w-[400px] h-[400px] text-base\" placeholder=\"Start writing...\"></textarea><div class=\"flex flex-row gap-2\"><button class=\"border-2 border-accent px-4 py-2 text-danger font-bold uppercase\">discard</button> <button class=\"border-2 border-accent px-4 py-2 grow font-bold uppercase\">do nothing</button> <button class=\"border-2 border-accent px-4 py-2 uppercase\">publish</button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -52,7 +52,7 @@ func home() templ.Component {
 	})
 }
 
-func Home() templ.Component {
+func Me() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -85,7 +85,7 @@ func Home() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = home().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = me().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
