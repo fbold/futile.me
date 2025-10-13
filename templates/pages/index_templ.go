@@ -44,7 +44,7 @@ func home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!-- <span class=\"w-min leading-none\">au</span> --><!-- <span class=\"w-min leading-none\">th</span> --></div></div><div class=\"flex flex-col gap-2\"><textarea class=\"p-2 border-2 border-accent w-[400px] h-[400px] text-base\" placeholder=\"Start writing...\"></textarea><div class=\"flex flex-row gap-2\"><button class=\"border-2 border-accent px-4 py-2 text-danger font-bold uppercase\">discard</button> <button class=\"border-2 border-accent px-4 py-2 grow font-bold uppercase\">do nothing</button> <button class=\"border-2 border-accent px-4 py-2 uppercase grow\">publish</button></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!-- <span class=\"w-min leading-none\">au</span> --><!-- <span class=\"w-min leading-none\">th</span> --></div></div><div class=\"flex flex-col gap-2\"><textarea class=\"peer z-10 p-2 bg-surface transition-[height] focus:h-[400px] border-2 border-accent w-[400px] h-[100px] text-base\" placeholder=\"Start writing...\"></textarea><div class=\"flex flex-row gap-2 transition-transform -translate-y-20 peer-focus:translate-y-0\"><button class=\"border-2 border-accent px-4 py-2 text-danger font-bold uppercase\">discard</button> <button class=\"border-2 border-accent px-4 py-2 grow font-bold uppercase\">do nothing</button> <button class=\"border-2 border-accent px-4 py-2 uppercase grow\">publish</button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
