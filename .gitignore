@@ -13,3 +13,6 @@
 /static/generated/
 
 node_modules
+
+*_templ.go
+
