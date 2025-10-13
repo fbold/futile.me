@@ -1,0 +1,41 @@
+package pages
+
+import "github.com/fbold/futile.me/templates/layouts"
+import c "github.com/fbold/futile.me/templates/components"
+
+templ register() {
+	<div class="flex flex-col gap-4 max-w-[400px]">
+		<form class="flex flex-col gap-2" hx-on="submit" hx-post="/register">
+			<label class="flex flex-col">
+				<span class="text-sm">username (public)</span>
+				<input name="username" type="text" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
+			</label>
+			<label class="flex flex-col">
+				<span class="text-sm">email (optional)</span>
+				<input type="email" class="peer px-2 py-1 border-2 border-accent focus:outline-none"/>
+			</label>
+			<label class="flex flex-col">
+				<span class="text-sm">passwd (twice to be sure)</span>
+				<input type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
+			</label>
+			<label class="flex flex-col">
+				<input type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
+			</label>
+			@c.TileButton(c.TileButtonProps{Typ: "submit"}) {
+				submit
+			}
+		</form>
+	</div>
+}
+
+templ Register() {
+	@layouts.Layout() {
+		@register()
+	}
+}
+
+// <label class="relative flex flex-col">
+// 	<span class="opacity-0 pointer-event-none">email</span>
+// 	<input type="email" class="peer px-2 py-1 border-2 border-accent focus:outline-none"/>
+// 	<span class="absolute transition-transform scale-100 translate-y-[calc(100%+4px)] translate-x-2 peer-focus:scale-75 origin-left peer-focus:translate-y-0 peer-focus:translate-x-0 ">email (optional)</span>
+// </label>

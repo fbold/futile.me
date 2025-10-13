@@ -1,17 +1,13 @@
 package main
 
 import (
-	"embed"
-
 	"github.com/a-h/templ"
+	"github.com/fbold/futile.me/cmd/handlers"
 	"github.com/fbold/futile.me/templates/pages"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
-
-//go:embed static/*
-var static embed.FS
 
 func usingFiber(page func() templ.Component) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
@@ -27,7 +23,10 @@ func main() {
 	app.Static("/static", "./static")
 
 	app.Get("/", usingFiber(pages.Home))
-	app.Get("/write", usingFiber(pages.Write))
+	app.Get("/profile", usingFiber(pages.Profile))
+
+	app.Get("/register", usingFiber(pages.Register))
+	app.Post("/register", handlers.Register)
 
 	app.Listen(":2999")
 }
