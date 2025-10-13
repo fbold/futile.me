@@ -1,0 +1,29 @@
+package components
+
+type TileButtonProps struct {
+	Typ  string
+	Href string
+	Cn   string
+}
+
+templ TileButton(props TileButtonProps) {
+	if props.Href != "" {
+		<a
+			href={ props.Href }
+			class={ "cursor-pointer text-nowrap bg-accent text-surface h-12 min-w-12 border-2 border-accent py-2 px-3 font-bold flex flex-col items-center gap-0 justify-center", props.Cn }
+		>
+			{ children... }
+		</a>
+	} else {
+		<button
+			if props.Typ != "" {
+				type={ props.Typ }
+			} else {
+				type="button"
+			}
+			class={ "cursor-pointer text-nowrap bg-accent text-surface h-12 min-w-12 border-2 border-accent py-2 px-3 font-bold flex flex-col items-center gap-0 justify-center", props.Cn }
+		>
+			{ children... }
+		</button>
+	}
+}

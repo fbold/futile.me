@@ -1,34 +1,47 @@
 package pages
 
 import "github.com/fbold/futile.me/templates/layouts"
+import c "github.com/fbold/futile.me/templates/components"
 
 templ home() {
-	<div class="flex flex-col gap-2 max-w-[400px]">
-		<div class="flex flex-row gap-2 w-full">
-			<h2
-				class="text-lg p-4 border-2 shrink border-accent font-bold text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden"
-			>
-				the home of
-				written
-				futility
-			</h2>
-			<div class="h-full aspect-square border-2 border-accent p-2 flex flex-col items-center gap-0 justify-center">
-				{ "me" }
-				<!-- <span class="w-min leading-none">au</span> -->
-				<!-- <span class="w-min leading-none">th</span> -->
+	<div class="flex flex-col gap-4 max-w-[400px]">
+		<h2
+			class="text-lg p-4 border-2 shrink border-accent font-bold text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden"
+		>
+			the home of
+			written
+			futility
+		</h2>
+		<div>
+			<div class="py-1 px-2 border-accent border-2 border-b-0">
+				go to...
+			</div>
+			<div class="flex flex-row gap-2 w-full">
+				@c.TileButton(c.TileButtonProps{Href: "/profile"}) {
+					make acnt
+				}
+				@c.TileButton(c.TileButtonProps{Href: "/help"}) {
+					help
+				}
+				@c.TileSpacer()
+				@c.TileButton(c.TileButtonProps{Href: "/public"}) {
+					publck
+				}
 			</div>
 		</div>
-		<div class="flex flex-col gap-2">
+		<div class="flex flex-col">
 			<textarea
-				class="peer z-10 p-2 bg-surface transition-[height] focus:h-[400px] border-2 border-accent w-[400px] h-[100px] text-base"
+				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] not-focus:h-[100px] focus:h-[400px] border-2 focus:border-b-0 border-accent w-[400px] h-[100px] text-base"
 				placeholder="Start writing..."
 			></textarea>
 			<div class="flex flex-row gap-2 transition-transform -translate-y-20 peer-focus:translate-y-0">
-				<button class="border-2 border-accent px-4 py-2 text-danger font-bold uppercase">discard</button>
-				<button class="border-2 border-accent px-4 py-2 grow font-bold uppercase">
-					do nothing
-				</button>
-				<button class="border-2 border-accent px-4 py-2 uppercase grow">publish</button>
+				@c.TileButton(c.TileButtonProps{Cn: "bg-danger border-danger"}) {
+					discard
+				}
+				@c.TileSpacer()
+				@c.TileButton(c.TileButtonProps{Cn: "bg-success border-success"}) {
+					publish
+				}
 			</div>
 		</div>
 	</div>
