@@ -4,6 +4,7 @@ import (
 	"github.com/a-h/templ"
 	"github.com/fbold/futile.me/cmd/handlers"
 	"github.com/fbold/futile.me/templates/pages"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -22,6 +23,13 @@ func main() {
 
 	app.Static("/static", "./static")
 
+	validate := validator.New(validator.WithRequiredStructEnabled())
+
+	app.Use(func(c *fiber.Ctx) error {
+		c.Locals("validator", validate)
+		return c.Next()
+	})
+
 	app.Get("/", usingFiber(pages.Home))
 	app.Get("/profile", usingFiber(pages.Profile))
 
@@ -29,4 +37,8 @@ func main() {
 	app.Post("/register", handlers.Register)
 
 	app.Listen(":2999")
+}
+
+func connectDB() {
+
 }

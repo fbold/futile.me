@@ -17,15 +17,15 @@ templ home() {
 				go to...
 			</div>
 			<div class="flex flex-row gap-2 w-full">
-				@c.TileButton(c.TileButtonProps{Href: "/profile"}) {
-					make acnt
-				}
 				@c.TileButton(c.TileButtonProps{Href: "/help"}) {
 					help
 				}
 				@c.TileSpacer()
+				@c.TileButton(c.TileButtonProps{Href: "/register"}) {
+					make account
+				}
 				@c.TileButton(c.TileButtonProps{Href: "/public"}) {
-					publck
+					public
 				}
 			</div>
 		</div>
