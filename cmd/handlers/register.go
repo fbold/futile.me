@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"log/slog"
+	"net/http"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/gofiber/fiber/v2"
 )
 
 type User struct {
@@ -12,12 +12,12 @@ type User struct {
 	password string `validate:"required"`
 }
 
-func Register(c *fiber.Ctx) error {
-	v := c.Locals("validator").(*validator.Validate)
+func Register(w http.ResponseWriter, r *http.Request) {
+	v := r.Context().Value("validator").(*validator.Validate)
 
 	user := &User{
-		username: c.FormValue("username"),
-		password: c.FormValue("password"),
+		username: r.FormValue("username"),
+		password: r.FormValue("password"),
 	}
 
 	err := v.Struct(user)
@@ -26,6 +26,4 @@ func Register(c *fiber.Ctx) error {
 	} else {
 		slog.Info("user valid")
 	}
-
-	return nil
 }
