@@ -1,0 +1,20 @@
+name: futile
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: always
+    shm_size: 128mb
+    env_file:
+      - .env.db
+    volumes:
+      - futile-data:/var/lib/postgresql
+    ports:
+      - 4001:5432
+    networks:
+      - futile-network
+
+volumes:
+  futile-data:
+networks:
+  futile-network:
