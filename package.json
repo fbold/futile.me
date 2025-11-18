@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "build": "npx tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify",
-    "migrate": "migrate -path db/migrations -database 'postgresql://postgres:password@localhost:4001/futile?sslmode=disable'"
+    "migrate": "migrate -path internal/db/migrations -database 'postgresql://postgres:password@localhost:4001/futile?sslmode=disable'",
+    "migration": "migrate create -dir internal/db/migrations"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.14",

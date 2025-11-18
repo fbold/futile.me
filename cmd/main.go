@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 
 	"github.com/a-h/templ"
-	"github.com/fbold/futile.me/cmd/handlers"
-	"github.com/fbold/futile.me/templates/pages"
+	"github.com/fbold/futile.me/internal/handlers"
+	"github.com/fbold/futile.me/internal/templates/pages"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-playground/validator/v10"
@@ -31,7 +31,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	_, dbmiddleware := connectDB()
+	dbpool, dbmiddleware := connectDB()
+	defer dbpool.Close()
 	r.Use(dbmiddleware)
 
 	validate := validator.New(validator.WithRequiredStructEnabled())
@@ -62,7 +63,6 @@ func connectDB() (*pgxpool.Pool, func(next http.Handler) http.Handler) {
 		fmt.Fprintf(os.Stderr, "Unable to create connection pool: %v\n", err)
 		os.Exit(1)
 	}
-	// defer dbpool.Close()
 
 	return dbpool, func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
