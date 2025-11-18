@@ -12,14 +12,14 @@ templ register() {
 			</label>
 			<label class="flex flex-col">
 				<span class="text-sm">email (optional)</span>
-				<input type="email" class="peer px-2 py-1 border-2 border-accent focus:outline-none"/>
+				<input name="email" type="email" class="peer px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
 			<label class="flex flex-col">
 				<span class="text-sm">passwd (twice to be sure)</span>
-				<input type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
+				<input name="password" type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
 			<label class="flex flex-col">
-				<input type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
+				<input name="passwordconfirm" type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
 			@c.TileButton(c.TileButtonProps{Typ: "submit"}) {
 				submit

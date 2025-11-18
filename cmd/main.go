@@ -62,7 +62,7 @@ func connectDB() (*pgxpool.Pool, func(next http.Handler) http.Handler) {
 		fmt.Fprintf(os.Stderr, "Unable to create connection pool: %v\n", err)
 		os.Exit(1)
 	}
-	defer dbpool.Close()
+	// defer dbpool.Close()
 
 	return dbpool, func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

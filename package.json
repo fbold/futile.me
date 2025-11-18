@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npx tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify"
+    "build": "npx tailwindcss -i ./static/styles/globals.css -o ./static/styles/output.css --minify",
+    "migrate": "migrate -path db/migrations -database 'postgresql://postgres:password@localhost:4001/futile?sslmode=disable'"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.14",
