@@ -17,6 +17,11 @@ type User struct {
 	passwordconfirm string `validate:"required,eqfield=password"`
 }
 
+func auth() {
+
+	return
+}
+
 func Register(w http.ResponseWriter, r *http.Request) {
 	v := r.Context().Value("validator").(*validator.Validate)
 	db := r.Context().Value("db").(*pgxpool.Pool)
