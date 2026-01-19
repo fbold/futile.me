@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/a-h/templ"
+	util "github.com/fbold/futile.me/internal"
 	"github.com/fbold/futile.me/internal/handlers"
 	"github.com/fbold/futile.me/internal/templates/pages"
 	"github.com/go-chi/chi/v5"
@@ -17,10 +17,6 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 )
-
-func serve(page func() templ.Component) func(w http.ResponseWriter, r *http.Request) {
-	return templ.Handler(page()).ServeHTTP
-}
 
 func main() {
 	err := godotenv.Load()
@@ -31,10 +27,12 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
+	// DATABASE
 	dbpool, dbmiddleware := connectDB()
 	defer dbpool.Close()
 	r.Use(dbmiddleware)
 
+	// VALIDATION
 	validate := validator.New(validator.WithRequiredStructEnabled())
 	r.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -43,16 +41,20 @@ func main() {
 		})
 	})
 
+	// STATIC FILES
 	dir, _ := os.Getwd()
 	filesDir := http.Dir(filepath.Join(dir, "static"))
 	fs := http.FileServer(filesDir)
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 
-	r.Get("/", serve(pages.Home))
-	r.Get("/profile", serve(pages.Profile))
+	// PAGES
+	r.Get("/", util.Serve(pages.Home))
+	r.Get("/profile", util.Serve(pages.Profile))
 
-	r.Get("/register", serve(pages.Register))
+	r.Get("/register", util.Serve(pages.Register))
 	r.Post("/register", handlers.Register)
+	r.Get("/login", util.Serve(pages.Login))
+	r.Post("/login", handlers.Login)
 
 	http.ListenAndServe(":2999", r)
 }

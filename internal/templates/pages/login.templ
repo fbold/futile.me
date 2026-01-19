@@ -3,23 +3,16 @@ package pages
 import "github.com/fbold/futile.me/internal/templates/layouts"
 import c "github.com/fbold/futile.me/internal/templates/components"
 
-templ register() {
+templ login() {
 	<div class="flex flex-col gap-4 max-w-[400px]">
-		<form class="flex flex-col gap-2" hx-on="submit" hx-post="/register">
+		<form class="flex flex-col gap-2" hx-on="submit" hx-post="/login">
 			<label class="flex flex-col">
-				<span class="text-sm">username (public)</span>
+				<span class="text-sm">username</span>
 				<input name="username" type="text" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
 			<label class="flex flex-col">
-				<span class="text-sm">email (optional)</span>
-				<input name="email" type="email" class="peer px-2 py-1 border-2 border-accent focus:outline-none"/>
-			</label>
-			<label class="flex flex-col">
-				<span class="text-sm">passwd (twice to be sure)</span>
+				<span class="text-sm">password</span>
 				<input name="password" type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
-			</label>
-			<label class="flex flex-col">
-				<input name="passwordconfirm" type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
 			@c.TileButton(c.TileButtonProps{Typ: "submit"}) {
 				submit
@@ -28,9 +21,9 @@ templ register() {
 	</div>
 }
 
-templ Register() {
+templ Login() {
 	@layouts.Layout() {
-		@register()
+		@login()
 	}
 }
 
