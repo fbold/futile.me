@@ -1,16 +1,15 @@
-package handlers
+package main
 
 import (
-	"context"
 	"log/slog"
 	"net/http"
+	"time"
 
-	"github.com/a-h/templ"
 	util "github.com/fbold/futile.me/internal"
 	"github.com/fbold/futile.me/internal/templates/pages"
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-playground/validator/v10"
 	"github.com/jackc/pgx/v5/pgxpool"
-	// "github.com/sqids/sqids-go"
 )
 
 type User struct {
@@ -20,12 +19,7 @@ type User struct {
 	PasswordConfirm string  `validate:"required,eqfield=Password"`
 }
 
-func auth() {
-
-	return
-}
-
-func Register(w http.ResponseWriter, r *http.Request) {
+func handleRegister(w http.ResponseWriter, r *http.Request) {
 	v := r.Context().Value("validator").(*validator.Validate)
 	db := r.Context().Value("db").(*pgxpool.Pool)
 
@@ -45,7 +39,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var createdUser User
-	err = db.QueryRow(context.Background(), `
+	err = db.QueryRow(r.Context(), `
 		INSERT INTO
 			users (username, email, password)
 			VALUES ($1, $2, $3)`,
@@ -57,6 +51,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		slog.Info("error db", "error", err)
 	}
+
+	w.Header().Add("HX-Location", "/")
+	util.Serve(pages.Login)
 }
 
 type UserLogin struct {
@@ -64,8 +61,12 @@ type UserLogin struct {
 	Password string
 }
 
-func Login(w http.ResponseWriter, r *http.Request) {
+func handleLogin(w http.ResponseWriter, r *http.Request) {
 	db := r.Context().Value("db").(*pgxpool.Pool)
+
+	_, claims, _ := jwtauth.FromContext(r.Context())
+
+	slog.Info("jwt", "jwt", claims)
 
 	userRequest := UserLogin{
 		Username: r.FormValue("username"),
@@ -75,7 +76,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var username string
 	var password string
 
-	var err = db.QueryRow(context.Background(), `
+	var err = db.QueryRow(r.Context(), `
 		SELECT username, password FROM users WHERE username = $1`,
 		userRequest.Username,
 	).Scan(&username, &password)
@@ -92,8 +93,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	slog.Info("user found", "user", userRequest)
+	_, jwtString, _ := tokenAuth.Encode(map[string]interface{}{
+		"username": username,
+		"exp":      time.Now().Add(30 * time.Minute).Unix(),
+	})
 
+	cookie := http.Cookie{
+		Name:     "jwt",
+		Value:    jwtString,
+		Quoted:   false,
+		Path:     "/",
+		SameSite: http.SameSiteStrictMode,
+	}
+
+	http.SetCookie(w, &cookie)
 	w.Header().Add("HX-Location", "/")
 	util.Serve(pages.Home)
 }

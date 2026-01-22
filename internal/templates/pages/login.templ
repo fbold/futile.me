@@ -5,7 +5,8 @@ import c "github.com/fbold/futile.me/internal/templates/components"
 
 templ login() {
 	<div class="flex flex-col gap-4 max-w-[400px]">
-		<form class="flex flex-col gap-2" hx-on="submit" hx-post="/login">
+		<form class="flex flex-col gap-2 items-center" hx-on="submit" hx-post="/login">
+			<h2 class="text-2xl mb-4">login</h2>
 			<label class="flex flex-col">
 				<span class="text-sm">username</span>
 				<input name="username" type="text" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
@@ -14,7 +15,7 @@ templ login() {
 				<span class="text-sm">password</span>
 				<input name="password" type="password" class="px-2 py-1 border-2 border-accent focus:outline-none"/>
 			</label>
-			@c.TileButton(c.TileButtonProps{Typ: "submit"}) {
+			@c.TileButton(c.TileButtonProps{Typ: "submit", Cn: "w-full"}) {
 				submit
 			}
 		</form>
@@ -22,7 +23,7 @@ templ login() {
 }
 
 templ Login() {
-	@layouts.Layout() {
+	@layouts.AuthLayout() {
 		@login()
 	}
 }

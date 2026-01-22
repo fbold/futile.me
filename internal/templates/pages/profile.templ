@@ -3,11 +3,15 @@ package pages
 import "github.com/fbold/futile.me/internal/templates/layouts"
 
 templ profile() {
-	<div class="flex flex-col gap-2 max-w-[400px]"></div>
+	<div class="flex flex-col gap-2 max-w-[400px]">
+		<div class="flex border-accent border-2 w-full">
+			<h1>USER</h1>
+		</div>
+	</div>
 }
 
 templ Profile() {
-	@layouts.Layout() {
+	@layouts.MainLayout() {
 		@profile()
 	}
 }

@@ -1,4 +1,4 @@
-@import "tailwindcss" source("../../.");
+@import "tailwindcss" source("../../internal/templates");
 
 @font-face {
   font-family: "NectoMono";

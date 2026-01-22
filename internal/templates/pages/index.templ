@@ -6,25 +6,23 @@ import c "github.com/fbold/futile.me/internal/templates/components"
 templ home() {
 	<div class="flex flex-col gap-2 max-w-[400px]">
 		<h2
-			class="text-lg p-4 border-2 shrink border-accent font-bold text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden"
+			class="text-lg p-4 border-2 border-accent text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden uppercase italic font-thin"
 		>
-			the home of
-			written
-			futility
+			futile.me
 		</h2>
-		<div>
-			<div class="flex flex-row gap-2 w-full">
-				@c.TileButton(c.TileButtonProps{Href: "/help"}) {
-					help
-				}
-				@c.TileSpacer()
-				@c.TileButton(c.TileButtonProps{Href: "/register"}) {
-					make account
-				}
-				@c.TileButton(c.TileButtonProps{Href: "/public"}) {
-					public
-				}
-			</div>
+		<div class="flex flex-row gap-2 w-full">
+			@c.TileButton(c.TileButtonProps{Href: "/help"}) {
+				help
+			}
+			@c.TileButton(c.TileButtonProps{Href: "/login"}) {
+				login
+			}
+			@c.TileButton(c.TileButtonProps{Href: "/register", Cn: "grow"}) {
+				make account
+			}
+			<!-- @c.TileButton(c.TileButtonProps{Href: "/public"}) { -->
+			<!-- 	public -->
+			<!-- } -->
 		</div>
 		<div class="flex flex-col">
 			<textarea
@@ -32,20 +30,21 @@ templ home() {
 				placeholder="Start writing..."
 			></textarea>
 			<div class="flex flex-row gap-2 transition-transform -translate-y-20 peer-focus:translate-y-0">
-				@c.TileButton(c.TileButtonProps{Cn: "bg-danger border-danger"}) {
-					discard
-				}
+				<!-- @c.TileButton(c.TileButtonProps{Cn: "bg-danger border-danger"}) { -->
+				<!-- 	discard -->
+				<!-- } -->
 				@c.TileSpacer()
 				@c.TileButton(c.TileButtonProps{Cn: "bg-success border-success"}) {
 					publish
 				}
 			</div>
 		</div>
+		<div class="flex flex-col gap-2"></div>
 	</div>
 }
 
 templ Home() {
-	@layouts.Layout() {
+	@layouts.MainLayout() {
 		@home()
 	}
 }

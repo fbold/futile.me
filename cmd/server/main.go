@@ -9,14 +9,20 @@ import (
 	"path/filepath"
 
 	util "github.com/fbold/futile.me/internal"
-	"github.com/fbold/futile.me/internal/handlers"
 	"github.com/fbold/futile.me/internal/templates/pages"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-playground/validator/v10"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 )
+
+var tokenAuth *jwtauth.JWTAuth
+
+func init() {
+	tokenAuth = jwtauth.New("HS256", []byte("secret"), nil)
+}
 
 func main() {
 	err := godotenv.Load()
@@ -45,18 +51,32 @@ func main() {
 	dir, _ := os.Getwd()
 	filesDir := http.Dir(filepath.Join(dir, "static"))
 	fs := http.FileServer(filesDir)
-	r.Handle("/static/*", http.StripPrefix("/static/", fs))
+	r.Handle("/static/*", http.StripPrefix("/static/", addHeaders(fs)))
 
 	// PAGES
-	r.Get("/", util.Serve(pages.Home))
-	r.Get("/profile", util.Serve(pages.Profile))
 
 	r.Get("/register", util.Serve(pages.Register))
-	r.Post("/register", handlers.Register)
+	r.Post("/register", handleRegister)
 	r.Get("/login", util.Serve(pages.Login))
-	r.Post("/login", handlers.Login)
+	r.Post("/login", handleLogin)
+
+	r.Group(func(r chi.Router) {
+		r.Use(jwtauth.Verifier(tokenAuth))
+		// r.Use(jwtauth.Authenticator(tokenAuth))
+		r.Use(authenticate())
+
+		r.Get("/", util.Serve(pages.Home))
+		r.Get("/profile", util.Serve(pages.Profile))
+	})
 
 	http.ListenAndServe(":2999", r)
+}
+
+func addHeaders(fs http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Cache-Control", "no-cache")
+		fs.ServeHTTP(w, r)
+	}
 }
 
 func connectDB() (*pgxpool.Pool, func(next http.Handler) http.Handler) {
@@ -71,5 +91,40 @@ func connectDB() (*pgxpool.Pool, func(next http.Handler) http.Handler) {
 			ctx := context.WithValue(r.Context(), "db", dbpool)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
+	}
+}
+
+func authenticate() func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		hfn := func(w http.ResponseWriter, r *http.Request) {
+			token, _, err := jwtauth.FromContext(r.Context())
+
+			if err != nil {
+				// checks if coming from loaded page, in which case let htmx handle
+				if r.Header.Get("HX-Request") == "true" {
+					w.Header().Set("HX-Redirect", "/login")
+					w.WriteHeader(http.StatusSeeOther)
+					return
+				}
+
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
+				return
+			}
+
+			if token == nil {
+				// checks if coming from loaded page, in which case let htmx handle
+				if r.Header.Get("HX-Request") == "true" {
+					w.Header().Set("HX-Redirect", "/login")
+					w.WriteHeader(http.StatusSeeOther)
+					return
+				}
+
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
+			}
+
+			// Token is authenticated, pass it through
+			next.ServeHTTP(w, r)
+		}
+		return http.HandlerFunc(hfn)
 	}
 }

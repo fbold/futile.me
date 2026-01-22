@@ -1,8 +1,9 @@
+
 package layouts
 
 import c "github.com/fbold/futile.me/internal/templates/components"
 
-templ MainLayout() {
+templ AuthLayout() {
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -14,11 +15,6 @@ templ MainLayout() {
 		<body class="bg-surface text-primary flex flex-col items-center justify-center font-main">
 			<div class="fixed top-2 left-2 aspect-square">
 				@c.Logo("h-20")
-			</div>
-			<div class="fixed top-2 right-2">
-				@c.TileButton(c.TileButtonProps{Href: "/profile"}) {
-					P
-				}
 			</div>
 			{ children... }
 		</body>

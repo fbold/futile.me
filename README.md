@@ -7,7 +7,3 @@ migrate -path internal/db/migrations -database "postgres://postgres:password@loc
 ```
 Note the `sslmode` param, that is to stop an "SSL not enabled" error.
 
-
-
-
-
