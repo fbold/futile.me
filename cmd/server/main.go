@@ -67,6 +67,8 @@ func main() {
 
 		r.Get("/", util.Serve(pages.Home))
 		r.Get("/profile", util.Serve(pages.Profile))
+
+		r.Post("/document", handleDocumentCreate)
 	})
 
 	http.ListenAndServe(":2999", r)

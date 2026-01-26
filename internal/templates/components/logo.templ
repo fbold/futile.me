@@ -26,11 +26,12 @@ func calcRelativeSize(size float64, fraction float64, property string) templ.Saf
 }
 
 templ Logo(class string) {
-	<div
+	<a
 		tabindex="-1"
-		class={ "relative aspect-square overflow-hidden group", class }
+		href="/"
+		class={ "relative block aspect-square overflow-hidden group", class }
 	>
-		<div class="relative px-2 py-1 border-bg border-2" style="height: 68%;">
+		<div class="relative px-2 py-1 border-bg border-2 overflow-hidden" style="height: 68%;">
 			<p class="text-base mx-auto break-all leading-tight">futile<wbr/>.me</p>
 			<div
 				class="absolute bg-white w-full h-full left-0 top-0 group-focus:rotate-0 group-hover:rotate-0 rotate-[30deg] group-focus:translate-y-0 group-hover:translate-y-0 translate-y-[72%] group-focus:translate-x-0 group-hover:translate-x-0 translate-x-[3%] duration-200 transition-transform mix-blend-difference"
@@ -40,11 +41,11 @@ templ Logo(class string) {
 			class="absolute w-full z-10 top-0 left-0 px-2 py-1 border-white border-2"
 			style="height: 68%;"
 		></div>
-		<div class="absolute w-full z-10 left-0 bg-surface" style="height:4%;top:68%;"></div>
-		<div class="absolute w-full z-10 left-0 border-white border-2" style="height:12%;top:72%;"></div>
-		<div class="absolute w-full z-10 left-0 bg-surface" style="height:4%;top:84%;"></div>
-		<div class="absolute w-full z-10 left-0 border-white border-2" style="height:12%;top:88%;"></div>
-	</div>
+		<!-- <div class="absolute w-full z-10 left-0 bg-surface" style="height:4%;top:68%;"></div> -->
+		<!-- <div class="absolute w-full z-10 left-0 border-white border-2" style="height:12%;top:72%;"></div> -->
+		<!-- <div class="absolute w-full z-10 left-0 bg-surface" style="height:4%;top:84%;"></div> -->
+		<!-- <div class="absolute w-full z-10 left-0 border-white border-2" style="height:12%;top:88%;"></div> -->
+	</a>
 }
 
 // templ Logo(size float64) {

@@ -73,13 +73,14 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		Password: r.FormValue("password"),
 	}
 
+	var id int
 	var username string
 	var password string
 
 	var err = db.QueryRow(r.Context(), `
-		SELECT username, password FROM users WHERE username = $1`,
+		SELECT id, username, password FROM users WHERE username = $1`,
 		userRequest.Username,
-	).Scan(&username, &password)
+	).Scan(&id, &username, &password)
 
 	if err != nil {
 		slog.Error("No user matching", err)
@@ -95,6 +96,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 
 	_, jwtString, _ := tokenAuth.Encode(map[string]interface{}{
 		"username": username,
+		"user_id":  id,
 		"exp":      time.Now().Add(30 * time.Minute).Unix(),
 	})
 
