@@ -6,6 +6,7 @@ import (
 	"time"
 
 	util "github.com/fbold/futile.me/internal"
+	"github.com/fbold/futile.me/internal/models"
 	"github.com/fbold/futile.me/internal/templates/pages"
 	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-playground/validator/v10"
@@ -110,5 +111,8 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, &cookie)
 	w.Header().Add("HX-Location", "/")
-	util.Serve(pages.Home)
+
+	documents := models.GetDocuments(r)
+
+	pages.Home(documents)
 }

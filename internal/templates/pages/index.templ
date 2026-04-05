@@ -1,15 +1,16 @@
 package pages
 
 import "github.com/fbold/futile.me/internal/templates/layouts"
+import "github.com/fbold/futile.me/internal/models"
 import c "github.com/fbold/futile.me/internal/templates/components"
 
-templ home() {
-	<div class="flex flex-col gap-2 max-w-[400px]">
-		<h2
-			class="text-lg p-4 border-2 border-accent text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden uppercase italic font-thin"
-		>
-			futile.me
-		</h2>
+templ home(initialDocuments []models.Document) {
+	<div class="flex flex-col gap-2 mx-auto grow max-w-[400px]">
+		<!-- <h2 -->
+		<!-- 	class="text-lg p-4 border-2 border-accent text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden uppercase italic font-thin" -->
+		<!-- > -->
+		<!-- 	futile.me -->
+		<!-- </h2> -->
 		<div class="flex flex-row gap-2 w-full">
 			@c.TileButton(c.TileButtonProps{Href: "/help"}) {
 				help
@@ -27,10 +28,10 @@ templ home() {
 		<form class="flex flex-col" hx-post="/document">
 			<textarea
 				name="content"
-				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] h-[400px] border-2 focus:border-b-0 border-accent w-[400px] text-base"
+				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] duration-200 focus:h-[400px] h-20 border-2 focus:border-b-0 border-accent w-full max-w-[400px] text-base"
 				placeholder="Start writing..."
 			></textarea>
-			<div class="flex flex-row gap-2 transition-transform ">
+			<div class="flex flex-row gap-2 transition-transform peer-focus:translate-y-0 -translate-y-full">
 				<!-- @c.TileButton(c.TileButtonProps{Cn: "bg-danger border-danger"}) { -->
 				<!-- 	discard -->
 				<!-- } -->
@@ -40,12 +41,16 @@ templ home() {
 				}
 			</div>
 		</form>
-		<div class="flex flex-col gap-2"></div>
+		<div class="flex flex-col gap-2">
+			for _, doc := range initialDocuments {
+				@c.Document(doc.Content)
+			}
+		</div>
 	</div>
 }
 
-templ Home() {
+templ Home(initialDocuments []models.Document) {
 	@layouts.MainLayout() {
-		@home()
+		@home(initialDocuments)
 	}
 }

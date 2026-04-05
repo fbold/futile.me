@@ -54,7 +54,6 @@ func main() {
 	r.Handle("/static/*", http.StripPrefix("/static/", addHeaders(fs)))
 
 	// PAGES
-
 	r.Get("/register", util.Serve(pages.Register))
 	r.Post("/register", handleRegister)
 	r.Get("/login", util.Serve(pages.Login))
@@ -65,7 +64,7 @@ func main() {
 		// r.Use(jwtauth.Authenticator(tokenAuth))
 		r.Use(authenticate())
 
-		r.Get("/", util.Serve(pages.Home))
+		r.Get("/", handleServe)
 		r.Get("/profile", util.Serve(pages.Profile))
 
 		r.Post("/document", handleDocumentCreate)

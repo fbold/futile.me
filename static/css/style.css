@@ -29,3 +29,7 @@ body {
   height: 100dvh;
   width: 100vw;
 }
+
+.bordered {
+  @apply border-2 border-accent;
+}

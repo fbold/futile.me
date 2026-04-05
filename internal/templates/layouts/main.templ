@@ -4,23 +4,30 @@ import c "github.com/fbold/futile.me/internal/templates/components"
 
 templ MainLayout() {
 	<!DOCTYPE html>
-	<html>
+	<html class="max-w-dvw w-dvh h-dvh max-h-dvh overflow-x-hidden ">
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<link rel="stylesheet" type="text/css" href="/static/generated/tailwind.css"/>
 			<script src="/static/js/htmx.min.js"></script>
 		</head>
-		<body class="bg-surface text-primary flex flex-col items-center justify-center font-main">
-			<div class="fixed top-2 left-2 aspect-square">
-				@c.Logo("h-20")
-			</div>
-			<div class="fixed top-2 right-2">
-				@c.TileButton(c.TileButtonProps{Href: "/profile"}) {
-					P
-				}
-			</div>
-			{ children... }
+		<body class="w-full bg-surface text-primary flex flex-col items-center justify-center font-main">
+			<nav class="w-full p-2 fixed top-0 left-0 flex h-18">
+				<!-- <div class="h-full"> -->
+				<!-- 	@c.Logo("h-12") -->
+				<!-- </div> -->
+				<div class="uppercase grow flex items-center bordered h-full px-4 italic">
+					futile.me
+				</div>
+				<div class="ml-auto">
+					@c.TileButton(c.TileButtonProps{Href: "/profile", Cn: "h-full aspect-square"}) {
+						P
+					}
+				</div>
+			</nav>
+			<main class="w-full max-w-full p-2 flex items-center">
+				{ children... }
+			</main>
 		</body>
 	</html>
 }
