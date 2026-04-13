@@ -5,16 +5,15 @@ go 1.24.5
 require (
 	github.com/a-h/templ v0.3.943
 	github.com/go-chi/chi/v5 v5.2.3
+	github.com/go-chi/jwtauth/v5 v5.3.3
 	github.com/go-playground/validator/v10 v10.28.0
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/joho/godotenv v1.5.1
-	github.com/sqids/sqids-go v0.4.1
 )
 
 require (
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.3.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.10 // indirect
-	github.com/go-chi/jwtauth/v5 v5.3.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect

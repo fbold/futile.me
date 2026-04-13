@@ -1,10 +1,10 @@
 package pages
 
 import "github.com/fbold/futile.me/internal/templates/layouts"
-import "github.com/fbold/futile.me/internal/models"
+import "github.com/fbold/futile.me/internal/sqlc"
 import c "github.com/fbold/futile.me/internal/templates/components"
 
-templ home(initialDocuments []models.Document) {
+templ home(initialDocuments []sqlc.Document) {
 	<div class="flex flex-col gap-2 mx-auto grow max-w-[400px]">
 		<!-- <h2 -->
 		<!-- 	class="text-lg p-4 border-2 border-accent text-center text-nowrap min-w-0 text-ellipsis overflow-x-hidden uppercase italic font-thin" -->
@@ -49,7 +49,7 @@ templ home(initialDocuments []models.Document) {
 	</div>
 }
 
-templ Home(initialDocuments []models.Document) {
+templ Home(initialDocuments []sqlc.Document) {
 	@layouts.MainLayout() {
 		@home(initialDocuments)
 	}

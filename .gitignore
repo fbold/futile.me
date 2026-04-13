@@ -4,6 +4,7 @@
 *.log
 
 *.env
+.env.db
 
 *.swp
 
