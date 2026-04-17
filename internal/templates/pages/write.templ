@@ -11,8 +11,8 @@ templ comp() {
 	</div>
 }
 
-templ Write() {
-	@layouts.MainLayout() {
+templ Write(isLoggedIn bool) {
+	@layouts.MainLayout(isLoggedIn) {
 		@comp()
 	}
 }

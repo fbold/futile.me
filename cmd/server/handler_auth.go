@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/a-h/templ"
 	util "github.com/fbold/futile.me/internal"
 	"github.com/fbold/futile.me/internal/sqlc"
 	"github.com/fbold/futile.me/internal/templates/pages"
@@ -108,5 +109,5 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("HX-Location", "/")
 
 	docs, _ := q.GetDocuments(r.Context(), 4)
-	pages.Home(docs)
+	templ.Handler(pages.Home(docs, true)).ServeHTTP(w, r)
 }

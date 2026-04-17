@@ -2,7 +2,7 @@ package layouts
 
 import c "github.com/fbold/futile.me/internal/templates/components"
 
-templ MainLayout() {
+templ MainLayout(showProfile bool) {
 	<!DOCTYPE html>
 	<html class="max-w-dvw w-dvh h-dvh max-h-dvh overflow-x-hidden ">
 		<head>
@@ -19,11 +19,13 @@ templ MainLayout() {
 				<div class="uppercase font-bold grow flex items-center bordered h-full px-4 italic">
 					futile.me
 				</div>
-				<div class="ml-auto">
-					@c.TileButton(c.TileButtonProps{Href: "/profile", Cn: "h-full"}) {
-						profile
-					}
-				</div>
+				if showProfile {
+					<div class="ml-auto">
+						@c.TileButton(c.TileButtonProps{Href: "/profile", Cn: "h-full"}) {
+							profile
+						}
+					</div>
+				}
 			</nav>
 			<main class="w-full max-w-full p-2 flex items-center">
 				{ children... }

@@ -6,6 +6,7 @@ import (
 	"github.com/a-h/templ"
 	"github.com/fbold/futile.me/internal/sqlc"
 	"github.com/fbold/futile.me/internal/templates/pages"
+	"github.com/go-chi/jwtauth/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -18,5 +19,20 @@ func handleServe(w http.ResponseWriter, r *http.Request) {
 		docs = []sqlc.Document{}
 	}
 
-	templ.Handler(pages.Home(docs)).ServeHTTP(w, r)
+	_, claims, _ := jwtauth.FromContext(r.Context())
+	isLoggedIn := claims != nil && claims["user_id"] != nil
+
+	templ.Handler(pages.Home(docs, isLoggedIn)).ServeHTTP(w, r)
+}
+
+func handleProfile(w http.ResponseWriter, r *http.Request) {
+	_, claims, _ := jwtauth.FromContext(r.Context())
+	username := ""
+	if claims != nil {
+		if u, ok := claims["username"].(string); ok {
+			username = u
+		}
+	}
+
+	templ.Handler(pages.Profile(username, true)).ServeHTTP(w, r)
 }

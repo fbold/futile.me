@@ -49,8 +49,8 @@ templ home(initialDocuments []sqlc.Document) {
 	</div>
 }
 
-templ Home(initialDocuments []sqlc.Document) {
-	@layouts.MainLayout() {
+templ Home(initialDocuments []sqlc.Document, isLoggedIn bool) {
+	@layouts.MainLayout(isLoggedIn) {
 		@home(initialDocuments)
 	}
 }

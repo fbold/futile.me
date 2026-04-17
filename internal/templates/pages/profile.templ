@@ -2,16 +2,20 @@ package pages
 
 import "github.com/fbold/futile.me/internal/templates/layouts"
 
-templ profile() {
+templ profile(username string) {
 	<div class="flex flex-col gap-2 max-w-[400px]">
 		<div class="flex border-accent border-2 w-full">
-			<h1>USER</h1>
+			<h1>{ username }</h1>
 		</div>
 	</div>
 }
 
-templ Profile() {
-	@layouts.MainLayout() {
-		@profile()
+func Profile(username string, isLoggedIn bool) templ.Component {
+	return ProfilePage(username, isLoggedIn)
+}
+
+templ ProfilePage(username string, isLoggedIn bool) {
+	@layouts.MainLayout(isLoggedIn) {
+		@profile(username)
 	}
 }

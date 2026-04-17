@@ -65,7 +65,7 @@ func main() {
 		r.Use(authenticate())
 
 		r.Get("/", handleServe)
-		r.Get("/profile", util.Serve(pages.Profile))
+		r.Get("/profile", handleProfile)
 
 		r.Post("/document", handleDocumentCreate)
 	})
