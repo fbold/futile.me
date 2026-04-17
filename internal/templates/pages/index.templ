@@ -25,7 +25,7 @@ templ home(initialDocuments []sqlc.Document) {
 			<!-- 	public -->
 			<!-- } -->
 		</div>
-		<form class="flex flex-col" hx-post="/document" hx-target="#documents-list" hx-swap="afterbegin">
+		<form class="flex flex-col" hx-post="/document" hx-target="#documents-list" hx-swap="afterbegin" hx-on::after-request="if (event.detail.successful) this.reset()">
 			<textarea
 				name="content"
 				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] duration-200 h-20 border-2 focus:border-b-0 border-accent w-full max-w-[400px] text-base"
