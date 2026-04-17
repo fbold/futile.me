@@ -25,13 +25,13 @@ templ home(initialDocuments []sqlc.Document) {
 			<!-- 	public -->
 			<!-- } -->
 		</div>
-		<form class="flex flex-col" hx-post="/document">
+		<form class="flex flex-col" hx-post="/document" hx-target="#documents-list" hx-swap="afterbegin">
 			<textarea
 				name="content"
-				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] duration-200 focus:h-[400px] h-20 border-2 focus:border-b-0 border-accent w-full max-w-[400px] text-base"
+				class="peer resize-none focus:outline-none z-10 p-2 bg-surface transition-[height,border] duration-200 h-20 border-2 focus:border-b-0 border-accent w-full max-w-[400px] text-base"
 				placeholder="Start writing..."
 			></textarea>
-			<div class="flex flex-row gap-2 transition-transform peer-focus:translate-y-0 -translate-y-full">
+			<div class="flex flex-row gap-2 transition-transform translate-y-0">
 				<!-- @c.TileButton(c.TileButtonProps{Cn: "bg-danger border-danger"}) { -->
 				<!-- 	discard -->
 				<!-- } -->
@@ -41,7 +41,7 @@ templ home(initialDocuments []sqlc.Document) {
 				}
 			</div>
 		</form>
-		<div class="flex flex-col gap-2">
+		<div class="flex flex-col gap-2" id="documents-list">
 			for _, doc := range initialDocuments {
 				@c.Document(doc.Content)
 			}
@@ -54,3 +54,4 @@ templ Home(initialDocuments []sqlc.Document) {
 		@home(initialDocuments)
 	}
 }
+

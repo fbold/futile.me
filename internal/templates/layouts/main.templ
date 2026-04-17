@@ -16,12 +16,12 @@ templ MainLayout() {
 				<!-- <div class="h-full"> -->
 				<!-- 	@c.Logo("h-12") -->
 				<!-- </div> -->
-				<div class="uppercase grow flex items-center bordered h-full px-4 italic">
+				<div class="uppercase font-bold grow flex items-center bordered h-full px-4 italic">
 					futile.me
 				</div>
 				<div class="ml-auto">
-					@c.TileButton(c.TileButtonProps{Href: "/profile", Cn: "h-full aspect-square"}) {
-						P
+					@c.TileButton(c.TileButtonProps{Href: "/profile", Cn: "h-full"}) {
+						profile
 					}
 				</div>
 			</nav>
